@@ -1,0 +1,46 @@
+/* Stili di base per la tua app */
+
+body {
+    font-family: 'Playfair Display', serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+.home {
+    text-align: center;
+    margin-top: 50px;
+}
+
+.logo {
+    color: #277576;
+    font-size: 2rem;
+}
+
+button {
+    background-color: #277576;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    margin-top: 20px;
+}
+
+button:hover {
+    background-color: #1a5a59;
+}
+
+.dentists-list {
+    margin: 20px;
+}
+
+.dentist-info {
+    display: none;
+    text-align: center;
+}
+
+#map {
+    height: 300px;
+    width: 100%;
+}
