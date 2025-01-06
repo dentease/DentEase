@@ -40,7 +40,15 @@ async function getNearbyDentists() {
 
         try {
             const response = await fetch(url);
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+
             const data = await response.json();
+
+            if (data.error_message) {
+                throw new Error(data.error_message);
+            }
 
             if (data.results && data.results.length > 0) {
                 dentistsList.innerHTML = "";
@@ -74,10 +82,11 @@ async function getNearbyDentists() {
             }
         } catch (error) {
             console.error("Errore durante la chiamata all'API di Google Places:", error);
-            alert("Si è verificato un errore. Riprova più tardi.");
+            alert(`Errore API: ${error.message}`);
         }
-    }, () => {
-        alert("Impossibile ottenere la posizione.");
+    }, (error) => {
+        console.error("Errore nella geolocalizzazione:", error);
+        alert("Errore nella geolocalizzazione. Verifica le autorizzazioni.");
     });
 }
 
@@ -98,7 +107,7 @@ function showDentistInfo(dentist) {
     const lng = dentist.geometry.location.lng;
 
     const mapFrame = document.createElement("iframe");
-    mapFrame.src = `https://www.google.com/maps/embed/v1/place?key=LA_TUA_API_KEY&q=${lat},${lng}`;
+    mapFrame.src = `https://www.google.com/maps/embed/v1/place?key=AIzaSyDWJb7ndaGTMoVqT3FuVIhE_XbVgTxOMwE&q=${lat},${lng}`;
     mapFrame.style.width = "100%";
     mapFrame.style.height = "300px";
     mapFrame.style.border = "0";
