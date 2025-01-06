@@ -32,7 +32,7 @@ async function getNearbyDentists() {
 
     navigator.geolocation.getCurrentPosition(async (position) => {
         const { latitude, longitude } = position.coords;
-        const apiKey = "AIzaSyDWJb7ndaGTMoVqT3FuVIhE_XbVgTxOMwE"; // Sostituisci con la tua API Key di Google
+        const apiKey = ""; // Sostituisci con la tua API Key di Google
         const radius = 5000; // Raggio in metri
         const type = "dentist";
 
