@@ -4,9 +4,13 @@ const backButton = document.getElementById("backButton");
 const websiteButton = document.getElementById("websiteButton");
 const dentistInfo = document.getElementById("dentistInfo");
 const dentistsList = document.getElementById("dentistsList");
+const logo = document.querySelector(".logo");
 
 searchButton.addEventListener("click", function() {
-    // Fai la chiamata alle API di Google per ottenere i dentisti nelle vicinanze
+    // Mostra il logo e chiama la funzione per ottenere i dentisti
+    dentistsList.innerHTML = "<p>Caricamento in corso...</p>";
+    dentistsList.style.display = "block";
+    dentistInfo.style.display = "none";
     getNearbyDentists();
 });
 
@@ -40,10 +44,23 @@ async function getNearbyDentists() {
 
             if (data.results && data.results.length > 0) {
                 dentistsList.innerHTML = "";
+
+                // Aggiungi il logo sopra la lista
+                const logoElement = document.createElement("h1");
+                logoElement.className = "logo";
+                logoElement.textContent = "DentEase - Find Your Dentist!";
+                dentistsList.appendChild(logoElement);
+
                 data.results.forEach(dentist => {
                     const div = document.createElement("div");
                     div.className = "dentist-item";
-                    div.textContent = dentist.name;
+                    div.innerHTML = `<strong>${dentist.name}</strong>`;
+                    div.style.margin = "10px 0";
+                    div.style.padding = "10px";
+                    div.style.border = "1px solid #ddd";
+                    div.style.borderRadius = "5px";
+                    div.style.backgroundColor = "#f9f9f9";
+                    div.style.cursor = "pointer";
                     div.addEventListener("click", () => {
                         showDentistInfo(dentist);
                     });
@@ -73,9 +90,9 @@ function showDentistInfo(dentist) {
     const googleRating = document.getElementById("googleRating");
     const map = document.getElementById("map");
 
-    dentistName.textContent = dentist.name;
-    dentistAddress.textContent = dentist.vicinity;
-    googleRating.textContent = `Rating: ${dentist.rating || "N/A"}`;
+    dentistName.textContent = `Nome: ${dentist.name}`;
+    dentistAddress.textContent = `Indirizzo: ${dentist.vicinity}`;
+    googleRating.textContent = `Rating Google: ${dentist.rating || "N/A"}`;
 
     const lat = dentist.geometry.location.lat;
     const lng = dentist.geometry.location.lng;
